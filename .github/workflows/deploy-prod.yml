@@ -1,6 +1,6 @@
 name: Deploy to prod env
 on:
-  pull_request:
+  push:
     branches: [ stage ]
 jobs:
 
