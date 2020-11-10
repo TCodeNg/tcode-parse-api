@@ -1,14 +1,17 @@
 name: Deploy to staging env
 on:
-  push:
-    branches: [ stage ]
+  workflow_run:
+    branches: [ main ]
+    workflows: ["Docker Image CI"]
+    types:
+      - completed
 jobs:
 
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using password
+    - name: Deploy...
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
@@ -16,6 +19,6 @@ jobs:
         key: ${{ secrets.KEY }}
         script: |
           cd ~/tcode-ops-stage
-          docker pull mrsmith9ja/tcode-parse-api
+          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/tcode-parse-api
           docker-compose down
           docker-compose up -d
