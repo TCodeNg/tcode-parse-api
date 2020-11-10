@@ -1,8 +1,9 @@
-import { webhook } from './cloud-functions';
+import { webhook }           from './cloud-functions';
 import { User, userActions } from './entity/user';
-import { walletActions } from './entity/wallet';
-import { cartActions } from './entity/cart';
-import { productActions } from './entity/product';
+import { walletActions }     from './entity/wallet';
+import { cartActions }       from './entity/cart';
+import { productActions }    from './entity/product';
+import { orderActions }      from "./entity/order";
 
 
 // User
@@ -27,3 +28,6 @@ Parse.Cloud.define('checkout', cartActions.checkout);
 // Product
 Parse.Cloud.beforeSave('Product', productActions.beforeSave);
 
+// Order
+Parse.Cloud.beforeSave('Order', orderActions.beforeSave);
+Parse.Cloud.afterSave('Order', orderActions.afterSave);
