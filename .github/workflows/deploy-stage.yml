@@ -1,6 +1,6 @@
 name: Deploy to staging env
 on:
-  push:
+  pull_request:
     branches: [ stage ]
 jobs:
 
