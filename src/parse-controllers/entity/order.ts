@@ -17,7 +17,7 @@ const beforeSave = async (req: Parse.Cloud.BeforeSaveRequest) => {
             }
         }
 
-        const products = cart.get('payload');
+        const products = cart.get('products');
         order.set('products', products);
 
         const acl = new Parse.ACL();
@@ -48,7 +48,7 @@ const afterSave = async (req: Parse.Cloud.AfterSaveRequest) => {
             }
         }
 
-        cart.set('payload', {});
+        cart.set('products', {});
         try {
             await cart.save(null, { useMasterKey: true })
         } catch (e) {
