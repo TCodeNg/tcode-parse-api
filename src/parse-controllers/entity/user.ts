@@ -11,8 +11,6 @@ const addUserToRRole = async (user: Parse.User, roleName: string) => {
 
   userRole = await roleQuery.first(useMasterKey);
 
-  console.log('ROLE', userRole, roleName);
-
   if (!userRole) {
     const userRoleACL = new Parse.ACL();
     userRoleACL.setPublicReadAccess(false);
@@ -77,7 +75,7 @@ const beforeLogin: (req: Parse.Cloud.TriggerRequest) => Promise<void> = async (r
   if (!!anonymousCart) {
     const userCartQuery = new Parse.Query('Cart');
     userCartQuery.equalTo('userId', user.id);
-    userCart = await userCartQuery.first({sessionToken: req.user.getSessionToken()});
+    userCart = await userCartQuery.first(useMasterKey);
 
 
     const anonymousProducts: { [key: string]: any } = anonymousCart?.get('products') ?? {};
