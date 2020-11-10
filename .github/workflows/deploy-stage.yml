@@ -1,7 +1,10 @@
 name: Deploy to staging env
 on:
-  pull_request:
+  workflow_run:
     branches: [ stage ]
+    workflows: ['Docker Image CI']
+    types:
+      - completed
 jobs:
 
   build:
