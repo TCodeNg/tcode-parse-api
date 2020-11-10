@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fac32e5-8138-41f8-9ced-1eb4e6421066" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy-stage.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy-stage.yml" afterDir="false" />
-    </list>
+    <list default="true" id="7fac32e5-8138-41f8-9ced-1eb4e6421066" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,9 +73,9 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="261" key="Vcs.Push.Dialog.v2" timestamp="1605000048706">
+    <state x="440" y="261" key="Vcs.Push.Dialog.v2" timestamp="1605016662827">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="440" y="261" key="Vcs.Push.Dialog.v2/0.0.1680.1050@0.0.1680.1050" timestamp="1605000048706" />
+    <state x="440" y="261" key="Vcs.Push.Dialog.v2/0.0.1680.1050@0.0.1680.1050" timestamp="1605016662827" />
   </component>
 </project>
