@@ -1,0 +1,21 @@
+name: Deploy to prod env
+on:
+  pull_request:
+    branches: [ stage ]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy...
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd ~/tcode-ops-prod
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/tcode-parse-api
+            docker-compose down
+            docker-compose up -d
