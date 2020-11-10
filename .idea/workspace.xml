@@ -19,11 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fac32e5-8138-41f8-9ced-1eb4e6421066" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/parse-controllers/entity/order.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parse-controllers/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/parse-controllers/main.ts" afterDir="false" />
-    </list>
+    <list default="true" id="7fac32e5-8138-41f8-9ced-1eb4e6421066" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,7 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1604948792063</updated>
       <workItem from="1604948809235" duration="3109000" />
-      <workItem from="1605041068236" duration="2270000" />
+      <workItem from="1605041068236" duration="2512000" />
     </task>
     <servers />
   </component>
@@ -81,9 +77,9 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="261" key="Vcs.Push.Dialog.v2" timestamp="1605041225173">
+    <state x="440" y="261" key="Vcs.Push.Dialog.v2" timestamp="1605046931855">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="440" y="261" key="Vcs.Push.Dialog.v2/0.0.1680.1050@0.0.1680.1050" timestamp="1605041225173" />
+    <state x="440" y="261" key="Vcs.Push.Dialog.v2/0.0.1680.1050@0.0.1680.1050" timestamp="1605046931855" />
   </component>
 </project>
