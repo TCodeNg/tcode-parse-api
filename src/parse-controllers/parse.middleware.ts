@@ -13,7 +13,7 @@ export class ParseMiddleware implements BaseMiddleware {
       fileKey: process.env.FILE_KEY || 'optionalFileKey',
       serverURL: process.env.SERVER_URL || 'http://localhost:1337/api', // Don't forget to change to https if needed
       liveQuery: {
-        classNames: ['Cart', 'Product']
+        classNames: ['Cart', 'Product', 'Order']
       }
     });
     return app.use('/api', api);
