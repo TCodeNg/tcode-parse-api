@@ -19,3 +19,6 @@ jobs:
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/tcode-parse-api
             docker-compose down
             docker-compose up -d
+      - name: Send slack message
+          run: |
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Deployed API to prod ENV"}' ${{ secrets.SLACK_API }}
