@@ -7,6 +7,10 @@ const beforeSave = async (req: Parse.Cloud.BeforeSaveRequest) => {
     const user = req.user;
     const order = req.object;
 
+    if (!user) {
+        throw 'User not authenticated';
+    }
+
     if (!order.existed()) {
         const cartQuery = new Parse.Query('Cart');
         cartQuery.equalTo('userId', user.id);
@@ -83,7 +87,7 @@ async function getPaystack(user: Parse.User, order: Parse.Object) {
         return await initPaystackPayment(paystackPaymentConfig);
     } catch (error) {
         console.error('Could not set paystack', error);
-        throw 'Could not set paystack gateway';
+        throw error.message ?? 'Could not set paystack gateway';
     }
 }
 
