@@ -20,3 +20,4 @@ jobs:
         docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/tcode-parse-api:$(date +%s)
         docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/tcode-parse-api:latest
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/tcode-parse-api
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"Deployed Image to Docker registry"}' ${{ secrets.SLACK_API }}
