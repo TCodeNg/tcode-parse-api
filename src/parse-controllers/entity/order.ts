@@ -2,6 +2,7 @@ import { Product }             from "model";
 import { initPaystackPayment } from "../cloud-functions";
 
 let cart: Parse.Object;
+let contact: Parse.Object;
 
 const beforeSave = async (req: Parse.Cloud.BeforeSaveRequest) => {
     const user = req.user;
@@ -24,8 +25,18 @@ const beforeSave = async (req: Parse.Cloud.BeforeSaveRequest) => {
             }
         }
 
+        try {
+            const contactQuery = new Parse.Query('contact');
+            contactQuery.equalTo('userId', user.id);
+            contact = await contactQuery.first({useMasterKey: true});
+            order.set('contact', contact.get('payload'));
+        } catch (e) {
+            console.log(e);
+        }
+
         const products = cart.get('products');
         order.set('products', products);
+        order.set('user', user);
 
         const acl = new Parse.ACL();
 
