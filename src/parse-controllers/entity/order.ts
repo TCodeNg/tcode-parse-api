@@ -1,3 +1,6 @@
+import { Product }             from "model";
+import { initPaystackPayment } from "../cloud-functions";
+
 let cart: Parse.Object;
 
 const beforeSave = async (req: Parse.Cloud.BeforeSaveRequest) => {
@@ -28,6 +31,13 @@ const beforeSave = async (req: Parse.Cloud.BeforeSaveRequest) => {
         acl.setRoleWriteAccess('admin', true);
         acl.setReadAccess(user, true);
         acl.setWriteAccess(user, true);
+        order.setACL(acl);
+    }
+
+    if (!order.has('gateway')) {
+        const gateway: { [key: string]: any } = {};
+        gateway.paystack = await getPaystack(user, order);
+        order.set('gateway', gateway);
     }
 
 }
@@ -54,6 +64,26 @@ const afterSave = async (req: Parse.Cloud.AfterSaveRequest) => {
         } catch (e) {
             throw 'Could not empty cart';
         }
+    }
+}
+
+async function getPaystack(user: Parse.User, order: Parse.Object) {
+    const obj: { [key: string]: Product } | undefined = order.get('products');
+    const products: Product[] = Object.values(obj) ?? [];
+    const totalDue: number = products.reduce((acc, curr) => (acc + curr.price.value), 0);
+
+    const paystackPaymentConfig = {
+        email: user.getEmail(),
+        currency: 'NGN',
+        amount: totalDue * 100,
+        reference: order.id
+    };
+
+    try {
+        return await initPaystackPayment(paystackPaymentConfig);
+    } catch (error) {
+        console.error('Could not set paystack', error);
+        throw 'Could not set paystack gateway';
     }
 }
 
