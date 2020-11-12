@@ -26,7 +26,7 @@ const beforeSave = async (req: Parse.Cloud.BeforeSaveRequest) => {
         }
 
         try {
-            const contactQuery = new Parse.Query('contact');
+            const contactQuery = new Parse.Query('Contact');
             contactQuery.equalTo('userId', user.id);
             contact = await contactQuery.first({useMasterKey: true});
             order.set('contact', contact.get('payload'));
