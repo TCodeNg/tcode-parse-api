@@ -34,7 +34,7 @@ export class Webhook implements BaseController {
         const url = process.env.SERVER_URL || 'http://localhost:1337/api/';
   
         try {
-          await axios.default.post(`${url}functions/webhook`, payload, config);
+          await axios.default.post(`${url}/functions/webhook`, payload, config);
         } catch (error) {
           console.log(error);
           res.status(500).send({error});
