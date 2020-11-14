@@ -19,7 +19,6 @@ const handlePaystack = async (_event: PaystackEvent) => {
   if (_event.event === EVENTS.CHARGE_SUCCESS) {
     status = 'paid';
   }
-  console.log(id, _event);
   const query = new Parse.Query('Order');
   query.equalTo('objectId', id);
   const order = await query.first({useMasterKey: true});
