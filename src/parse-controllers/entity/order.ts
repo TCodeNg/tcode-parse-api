@@ -8,8 +8,10 @@ const beforeSave = async (req: Parse.Cloud.BeforeSaveRequest) => {
     const user = req.user;
     const order = req.object;
 
-    if (!user || !req.master) {
-        throw 'User not authenticated';
+    if (!user) {
+        if (!req.master) {
+            throw 'User not authenticated';
+        }
     }
 
     if (!order.existed()) {
