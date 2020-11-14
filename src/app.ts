@@ -132,7 +132,7 @@ class App {
       ],
       credentials: true,
       methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-      origin: env !== 'DEV' ? process.env.ORIGIN : 'http://localhost:4200',
+      origin: '*',
       preflightContinue: false,
     };
   }
