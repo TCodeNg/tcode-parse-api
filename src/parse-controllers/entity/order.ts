@@ -51,12 +51,6 @@ const beforeSave = async (req: Parse.Cloud.BeforeSaveRequest) => {
         order.setACL(acl);
     }
 
-    if (!order.has('gateway')) {
-        const gateway: { [key: string]: any } = {};
-        gateway.paystack = await getPaystack(user, order);
-        order.set('gateway', gateway);
-    }
-
 }
 const afterSave = async (req: Parse.Cloud.AfterSaveRequest) => {
     const user = req.user;
@@ -80,6 +74,13 @@ const afterSave = async (req: Parse.Cloud.AfterSaveRequest) => {
             await cart.save(null, { useMasterKey: true })
         } catch (e) {
             throw 'Could not empty cart';
+        }
+
+        if (!order.has('gateway')) {
+            const gateway: { [key: string]: any } = {};
+            gateway.paystack = await getPaystack(user, order);
+            order.set('gateway', gateway);
+            await order.save(null, { useMasterKey: true });
         }
     }
 }
