@@ -20,7 +20,8 @@ const handlePaystack = async (_event: PaystackEvent) => {
     status = 'paid';
   }
   const query = new Parse.Query('Order');
-  const order = await query.get(id, {useMasterKey: true});
+  query.equalTo('objectId', id);
+  const order = await query.first({useMasterKey: true});
   order.set('status', status);
   return await order.save(null, { useMasterKey: true });
 }
