@@ -12,11 +12,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: satackey/action-docker-layer-caching@v0.0.8
-      continue-on-error: true
     - name: Build the Docker image
       run: |
         echo ${{secrets.DOCKER_HUB_ACCESS_TOKEN}} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+        docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/tcode-parse-api:latest
         docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/tcode-parse-api:$(date +%s)
         docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/tcode-parse-api:latest
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/tcode-parse-api
