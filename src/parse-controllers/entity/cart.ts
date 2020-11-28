@@ -120,9 +120,9 @@ const addToCart = async (req: Parse.Cloud.FunctionRequest) => {
   }
 
   if (!!cart && !!product) {
-    let products = product.get('products');
+    let products = product.get('products') ?? {};
 
-    const hasProduct = !!products[productId];
+    const hasProduct = !!products[productId] ?? false;
     cart.set('products', {
       ...products,
       [`${productId}`]: {
