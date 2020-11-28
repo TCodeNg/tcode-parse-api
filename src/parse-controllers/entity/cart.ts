@@ -45,7 +45,7 @@ const clearCart = async (req: Parse.Cloud.FunctionRequest) => {
 
 const removeFromCart = async (req: Parse.Cloud.FunctionRequest) => {
 
-  const { userId, productId } = req.params;
+  const { userId, productId, deleteItem } = req.params;
 
   const id = userId;
 
@@ -73,7 +73,9 @@ const removeFromCart = async (req: Parse.Cloud.FunctionRequest) => {
 
   let products = product.get('products');
   let _product = products[productId];
-  if (_product.quantity > 1) {
+  if(!!deleteItem) {
+    delete products[productId];
+  } else if (_product.quantity > 1) {
     _product = {
       ..._product,
       quantity: +_product.quantity - 1
