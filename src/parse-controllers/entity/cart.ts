@@ -72,7 +72,19 @@ const removeFromCart = async (req: Parse.Cloud.FunctionRequest) => {
   }
 
   let products = product.get('products');
-  delete products[productId];
+  let _product = products[productId];
+  if (_product.quantity > 1) {
+    _product = {
+      ..._product,
+      quantity: +_product.quantity - 1
+    }
+    products = {
+      ...products,
+      [`${productId}`]: _product
+    }
+  } else {
+    delete products[productId];
+  }
   cart.set('products', products);
   await cart.save(null, opts);
 }
@@ -102,7 +114,6 @@ const addToCart = async (req: Parse.Cloud.FunctionRequest) => {
   }
 
   try {
-    console.log(productId);
     product = await productQuery.get(productId, { useMasterKey: true });
   } catch (e) {
     throw new Error('Product not found');
@@ -110,9 +121,15 @@ const addToCart = async (req: Parse.Cloud.FunctionRequest) => {
 
   if (!!cart && !!product) {
     let products = product.get('products');
+
+    const hasProduct = !!products[productId];
     cart.set('products', {
       ...products,
-      [`${productId}`]: product.toJSON()
+      [`${productId}`]: {
+        item: product.toJSON(),
+        quality: hasProduct ? +products[productId].quantity + 1 : 1,
+        amount: products[productId].price
+      }
     });
     await cart.save(null, { useMasterKey: true });
   }
