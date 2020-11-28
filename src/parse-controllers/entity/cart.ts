@@ -128,7 +128,7 @@ const addToCart = async (req: Parse.Cloud.FunctionRequest) => {
       [`${productId}`]: {
         item: product.toJSON(),
         quality: hasProduct ? +products[productId].quantity + 1 : 1,
-        amount: products[productId].price
+        amount: product.toJSON().price
       }
     });
     await cart.save(null, { useMasterKey: true });
