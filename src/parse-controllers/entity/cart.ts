@@ -74,13 +74,21 @@ const removeFromCart = async (req: Parse.Cloud.FunctionRequest) => {
   if(!!deleteItem) {
     delete products[productId];
   } else if (_product.quantity > 1) {
-    _product = {
-      ..._product,
-      quantity: +_product.quantity - 1
-    }
+    const hasProduct = !!products[productId] ?? false;
+    const quantity = hasProduct && +products[productId].quantity ? +products[productId].quantity - 1 : 1;
+    const unitPrice = product.toJSON().price?.value ?? 0;
+    const totalAmount = quantity * unitPrice;
     products = {
       ...products,
-      [`${productId}`]: _product
+      [`${productId}`]: {
+        item: product.toJSON(),
+        quantity,
+        amount: product.toJSON().price,
+        totalAmount: {
+          currency: product.toJSON().price.currency,
+          value: totalAmount
+        }
+      }
     }
   } else {
     delete products[productId];
