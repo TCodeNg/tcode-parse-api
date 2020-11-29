@@ -44,9 +44,7 @@ const clearCart = async (req: Parse.Cloud.FunctionRequest) => {
 }
 
 const removeFromCart = async (req: Parse.Cloud.FunctionRequest) => {
-
   const { userId, productId, deleteItem } = req.params;
-
   const id = userId;
 
   if (!id) {
@@ -65,14 +63,14 @@ const removeFromCart = async (req: Parse.Cloud.FunctionRequest) => {
   }
 
   const productQuery = new Parse.Query('Product');
-  const product = await productQuery.get(productId);
+  const product = await productQuery.get(productId, {useMasterKey: true});
 
   if (!product) {
     throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Product not found');
   }
 
-  let products = product.get('products');
-  let _product = products[productId];
+  let products = cart.get('products');
+  let _product = products[productId] ?? {};
   if(!!deleteItem) {
     delete products[productId];
   } else if (_product.quantity > 1) {
