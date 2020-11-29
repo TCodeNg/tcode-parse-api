@@ -97,6 +97,52 @@ const removeFromCart = async (req: Parse.Cloud.FunctionRequest) => {
   await cart.save(null, opts);
 }
 
+const updateByQuantity = async (req: Parse.Cloud.FunctionRequest) => {
+  const { userId, productId, quantity } = req.params;
+  const id = userId;
+  if (!id) {
+    throw new Parse.Error(Parse.Error.INVALID_QUERY, 'User not valid');
+  }
+
+  const opts = req.user ? {sessionToken: req.user.getSessionToken()} : {useMasterKey: true};
+
+  const query = new Parse.Query('Cart');
+  query.equalTo('userId', id);
+
+  const cart = await query.first(opts);
+
+  if (!cart) {
+    throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Cart not found');
+  }
+
+  const productQuery = new Parse.Query('Product');
+  const product = await productQuery.get(productId, {useMasterKey: true});
+
+  if (!product) {
+    throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Product not found');
+  }
+
+  let products = cart.get('products');
+  const unitPrice = product.toJSON().price?.value ?? 0;
+  const totalAmount = quantity * unitPrice;
+
+  products = {
+    ...products,
+    [`${productId}`]: {
+      item: product.toJSON(),
+      quantity,
+      amount: product.toJSON().price,
+      totalAmount: {
+        currency: product.toJSON().price.currency,
+        value: totalAmount
+      }
+    }
+  }
+
+  cart.set('products', products);
+  await cart.save(null, opts);
+}
+
 const addToCart = async (req: Parse.Cloud.FunctionRequest) => {
 
   const { userId, productId } = req.params;
@@ -184,5 +230,6 @@ export const cartActions = {
   addToCart,
   removeFromCart,
   clearCart,
-  checkout
+  checkout,
+  updateByQuantity
 }

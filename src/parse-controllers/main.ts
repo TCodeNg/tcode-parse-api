@@ -24,6 +24,7 @@ Parse.Cloud.define('addToCart', cartActions.addToCart);
 Parse.Cloud.define('removeFromCart', cartActions.removeFromCart);
 Parse.Cloud.define('clearCart', cartActions.clearCart);
 Parse.Cloud.define('checkout', cartActions.checkout);
+Parse.Cloud.define('updateByQuantity', cartActions.updateByQuantity);
 
 // Product
 Parse.Cloud.beforeSave('Product', productActions.beforeSave);
