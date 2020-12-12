@@ -4,8 +4,6 @@ import { walletActions }     from './entity/wallet';
 import { cartActions }       from './entity/cart';
 import { productActions }    from './entity/product';
 import { orderActions }      from "./entity/order";
-import { imageActions }       from './entity/image';
-
 
 // User
 Parse.Cloud.beforeSave(User, userActions.beforeSave);
@@ -33,6 +31,3 @@ Parse.Cloud.beforeSave('Product', productActions.beforeSave);
 // Order
 Parse.Cloud.beforeSave('Order', orderActions.beforeSave);
 Parse.Cloud.afterSave('Order', orderActions.afterSave);
-
-// Image
-Parse.Cloud.define('uploadImage', imageActions.uploadImage);
