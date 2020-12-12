@@ -5,7 +5,6 @@ import { cartActions }       from './entity/cart';
 import { productActions }    from './entity/product';
 import { orderActions }      from "./entity/order";
 
-
 // User
 Parse.Cloud.beforeSave(User, userActions.beforeSave);
 Parse.Cloud.afterSave(User, userActions.afterSave);
