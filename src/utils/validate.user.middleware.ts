@@ -29,7 +29,6 @@ export const validateUser = async (req: express.Request, res: express.Response, 
         await axios.default.get(`${url}users/me`, config);
         next();
     } catch (err) {
-        console.log(err.toJSON(), token);
         res.status(403).send({
             error: new Error(err.message)
         });
