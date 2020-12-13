@@ -34,6 +34,7 @@ export const validateUser = async (
     await axios.default.get(`${url}/users/me`, config);
     next();
   } catch (err) {
+    console.log(err);
     res.status(403).send({
       error: new Error(err.message),
     });
