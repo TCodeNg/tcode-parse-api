@@ -63,8 +63,7 @@
   },
   "lint-staged": {
     "*.{ts,yml,json,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   }
 }
