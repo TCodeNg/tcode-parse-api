@@ -79,9 +79,23 @@ class App {
         },
       })
     );
-    const corsOptions = App.getCorsOptions(env);
-    this.app.use(cors(corsOptions));
-    this.app.options("*", cors(corsOptions));
+    const allowCrossDomain = function (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+      res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+      // intercept OPTIONS method
+      if ("OPTIONS" == req.method) {
+        res.send(200);
+      } else {
+        next();
+      }
+    };
+    this.app.use(allowCrossDomain);
     ParseMiddleware.init(this.app);
 
     this.app.use(
